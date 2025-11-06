@@ -1,28 +1,47 @@
-import { useState } from 'react'
+import React from 'react';
+import { motion } from 'framer-motion';
+import ParallaxBackground from './components/ParallaxBackground';
+import EnvelopeInvite from './components/EnvelopeInvite';
+import CountdownCard from './components/CountdownCard';
+import RSVPSection from './components/RSVPSection';
+import SoundToggle from './components/SoundToggle';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+    <div className="min-h-[200vh] relative text-pink-900">
+      <ParallaxBackground />
+      <SoundToggle />
+
+      {/* Hero section */}
+      <section className="relative z-10 min-h-screen flex items-center justify-center px-4">
+        <div className="w-full max-w-4xl flex flex-col items-center">
+          <motion.h1
+            className="mb-6 text-center text-5xl md:text-6xl"
+            style={{ fontFamily: 'Sacramento, cursive', textShadow: '0 6px 20px rgba(255,182,193,0.6)' }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            Count is {count}
-          </button>
+            Ananya’s 20th Birthday
+          </motion.h1>
+
+          <EnvelopeInvite onOpened={<>
+            <CountdownCard />
+            <RSVPSection />
+          </>} />
+
+          <p className="mt-10 text-sm text-pink-700/70" style={{ fontFamily: 'Inter, Poppins, system-ui' }}>
+            Made with love 💌
+          </p>
         </div>
-      </div>
+      </section>
+
+      {/* Spacer for parallax scroll feel */}
+      <section className="h-[80vh]" />
+
+      {/* Meta tags for social sharing are set in index.html by template; adding here dynamically would be SSR. */}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
